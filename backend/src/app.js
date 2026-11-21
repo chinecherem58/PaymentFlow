@@ -47,6 +47,7 @@ const { startPolling, stopPolling } = require('./services/transactionPollingServ
 const retrySelector = require('./services/retryServiceSelector');
 const { startConsistencyScheduler, stopConsistencyScheduler } = require('./services/consistencyScheduler');
 const { startReminderScheduler, stopReminderScheduler } = require('./services/reminderService');
+const { startInstalmentReminderScheduler, stopInstalmentReminderScheduler } = require('./services/instalmentReminderService');
 const { startPiiAnonymizationScheduler, stopPiiAnonymizationScheduler } = require('./services/piiAnonymizationScheduler');
 const { startWorker: startTxQueueWorker, stopWorker: stopTxQueueWorker } = require('./services/transactionQueueService');
 const { startSessionCleanupScheduler, stopSessionCleanupScheduler } = require('./services/sessionCleanupService');
@@ -294,6 +295,7 @@ connectDatabase().then(async () => {
     logger.info('[Leader] Starting leader-only schedulers');
     startConsistencyScheduler();
     startReminderScheduler();
+    startInstalmentReminderScheduler();
     startPiiAnonymizationScheduler();
     startSessionCleanupScheduler();
     startReconciliationScheduler();
@@ -309,6 +311,7 @@ connectDatabase().then(async () => {
     logger.info('[Leader] Stopping leader-only schedulers');
     stopConsistencyScheduler();
     stopReminderScheduler();
+    stopInstalmentReminderScheduler();
     stopPiiAnonymizationScheduler();
     stopSessionCleanupScheduler();
     stopReconciliationScheduler();
